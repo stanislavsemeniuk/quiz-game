@@ -200,9 +200,9 @@ function DifficultyRecord({
     <Box>
       <Box display="flex" gap="8px" alignItems="center" fontSize="24px">
         <EmojiEventsIcon color="secondary" />
-        {record}
+        <Typography>{record}</Typography>
       </Box>
-      <Box>{capitalizeString(difficulty)}</Box>
+      <Typography>{capitalizeString(difficulty)}</Typography>
     </Box>
   );
 }
