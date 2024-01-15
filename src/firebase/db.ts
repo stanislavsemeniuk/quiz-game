@@ -60,12 +60,14 @@ export async function getUserData(uid: string) {
     error = null;
   try {
     const responce = await getDoc(doc(userRef, uid));
-    result = {
-      userName: await responce.get('userName'),
-      easyModeRecord: await responce.get('easyModeRecord'),
-      mediumModeRecord: await responce.get('mediumModeRecord'),
-      hardModeRecord: await responce.get('hardModeRecord'),
-    };
+    if (responce.exists()) {
+      result = {
+        userName: await responce.get('userName'),
+        easyModeRecord: await responce.get('easyModeRecord'),
+        mediumModeRecord: await responce.get('mediumModeRecord'),
+        hardModeRecord: await responce.get('hardModeRecord'),
+      };
+    } else error = 'User with this id is not found';
   } catch (e) {
     if (e instanceof FirestoreError) error = e.message;
     else error = 'Error occured';
@@ -247,16 +249,18 @@ export async function getGameData(gameId: string) {
     error = null;
   try {
     const responce = await getDoc(doc(gamesRef, gameId));
-    result = {
-      score: await responce.get('score'),
-      mistakes: await responce.get('mistakes'),
-      category: await responce.get('category'),
-      difficulty: await responce.get('difficulty'),
-      isGameOver: await responce.get('isGameOver'),
-      questions: await responce.get('questions'),
-      currentQuestion: await responce.get('currentQuestion'),
-      user: await responce.get('user'),
-    };
+    if (responce.exists()) {
+      result = {
+        score: await responce.get('score'),
+        mistakes: await responce.get('mistakes'),
+        category: await responce.get('category'),
+        difficulty: await responce.get('difficulty'),
+        isGameOver: await responce.get('isGameOver'),
+        questions: await responce.get('questions'),
+        currentQuestion: await responce.get('currentQuestion'),
+        user: await responce.get('user'),
+      };
+    } else error = 'Game with this id is not found';
   } catch (e) {
     if (e instanceof FirestoreError) error = e.message;
     else error = 'Error occured';
