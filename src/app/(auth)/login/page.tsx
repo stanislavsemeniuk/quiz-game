@@ -13,7 +13,7 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    if (user !== null) router.push('/profile');
+    if (user !== null) router.push('/');
   }, [user]);
 
   const [email, setEmail] = useState('');

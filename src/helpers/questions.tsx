@@ -80,7 +80,11 @@ export async function checkAnswer(id: string, userAnswer: string) {
   try {
     const responce = await fetch(`https://the-trivia-api.com/v2/question/${id}`);
     const data: QuestionData = await responce.json();
-    result = { isRight: data.correctAnswer === userAnswer, correctAnswer: data.correctAnswer };
+    result = {
+      isRight: data.correctAnswer === userAnswer,
+      correctAnswer: data.correctAnswer,
+      question: data.question.text,
+    };
   } catch (e) {
     error = e;
   }

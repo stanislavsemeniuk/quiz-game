@@ -195,6 +195,7 @@ const gamesRef = collection(db, 'games');
 export type savedQuestion = {
   questionId: string;
   correctAnswer: string;
+  question: string;
   userAnswer: string;
 };
 
@@ -316,6 +317,7 @@ export async function answerQuestion(gameId: string, answer: string, questionId:
         questionId,
         userAnswer: answer,
         correctAnswer: answerResult?.correctAnswer,
+        question: answerResult.question,
       };
       if (answerResult.isRight) await updateGameAfterRightAnswer(gameId, questionObj);
       else await updateGameAfterWrongAnswer(gameId, questionObj);
