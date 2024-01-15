@@ -10,7 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import GameOver from '@/components/GameOver';
 import Loading from '@/components/Loading';
-import { getGameData, answerQuestion, createNewQuestion } from '@/firebase/db';
+import { getGameData, answerQuestion } from '@/firebase/db';
 import { rewriteCategory } from '@/helpers/strings';
 import { useAuthContext } from '@/context/AuthContext';
 import { useNotificationContext } from '@/context/NotificationContext';
@@ -38,38 +38,18 @@ export default function Game({ params }: { params: { gameId: string } }) {
 
   useEffect(() => {
     async function fetchData() {
+      setQuestion(null);
       const { result: gameData, error }: { result: Game | null; error: string | null } =
         await getGameData(params.gameId);
-      if (!error && gameData) setData(gameData);
-      else enableNotification({ type: 'error', message: error || 'Error' });
+      if (!error && gameData) {
+        setData(gameData);
+        setQuestion(gameData.currentQuestion);
+        createOptions(gameData.currentQuestion.options);
+        setIsOptionsDisabled(false);
+      } else enableNotification({ type: 'error', message: error || 'Error' });
     }
     fetchData();
   }, [params.gameId, amount, enableNotification]);
-
-  useEffect(() => {
-    async function fetchQuestion() {
-      setQuestion(null);
-      if (data) {
-        if (!data.currentQuestion) {
-          const { result: questionData, error } = await createNewQuestion(
-            params.gameId,
-            data?.category,
-            data?.difficulty,
-          );
-          if (!error && questionData) {
-            setQuestion(questionData);
-            setIsOptionsDisabled(false);
-            createOptions(questionData?.options);
-          } else enableNotification({ type: 'error', message: error || 'Error' });
-        } else {
-          setQuestion(data.currentQuestion);
-          setIsOptionsDisabled(false);
-          createOptions(data.currentQuestion.options);
-        }
-      }
-    }
-    fetchQuestion();
-  }, [params.gameId, data, enableNotification]);
 
   function createOptions(data: string[]) {
     const newOptions: Option[] = data.map((el) => {

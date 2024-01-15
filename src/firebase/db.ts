@@ -232,6 +232,7 @@ export async function createGame(uid: string, category: string, difficulty: stri
       currentQuestion: null,
       isGameOver: false,
     });
+    await createNewQuestion(id);
     result = { id };
   } catch (e) {
     if (e instanceof FirestoreError) error = e.message;
@@ -275,18 +276,20 @@ async function getAskedQuestions(gameId: string) {
   return { result, error };
 }
 
-export async function createNewQuestion(gameId: string, category: string, difficulty: string) {
+//TODO: check if game is finished
+export async function createNewQuestion(gameId: string) {
   let result = null,
     error = null;
   try {
+    const { result: gameData, error: gameDataError } = await getGameData(gameId);
     const { result: askedQuestions, error: askedQuestionsError } = await getAskedQuestions(gameId);
-    if (askedQuestions && !askedQuestionsError) {
+    if (askedQuestions && !askedQuestionsError && gameData && !gameDataError) {
       const {
         result: questionData,
         error: questionDataError,
       }: { result: Question | null; error: any } = await getUniqueQuestion(
-        category,
-        difficulty,
+        gameData.category,
+        gameData.difficulty,
         askedQuestions,
       );
       if (questionData && !questionDataError) {
@@ -314,11 +317,9 @@ export async function answerQuestion(gameId: string, answer: string, questionId:
         userAnswer: answer,
         correctAnswer: answerResult?.correctAnswer,
       };
-      if (answerResult.isRight) {
-        await updateGameAfterRightAnswer(gameId, questionObj);
-      } else {
-        await updateGameAfterWrongAnswer(gameId, questionObj);
-      }
+      if (answerResult.isRight) await updateGameAfterRightAnswer(gameId, questionObj);
+      else await updateGameAfterWrongAnswer(gameId, questionObj);
+      await createNewQuestion(gameId);
     }
     result = answerResult;
   } catch (e) {
