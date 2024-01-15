@@ -81,11 +81,7 @@ export default function Game({ params }: { params: { gameId: string } }) {
   async function handleAnswer(answer: string) {
     if (question) {
       setIsOptionsDisabled(true);
-      const { result: questionData, error } = await answerQuestion(
-        params.gameId,
-        answer,
-        question.id,
-      );
+      const { result: questionData, error } = await answerQuestion(params.gameId, answer);
       if (!error && questionData) {
         changeOptionsColors(answer, questionData.correctAnswer);
         setTimeout(() => {

@@ -307,23 +307,29 @@ export async function createNewQuestion(gameId: string) {
   return { result, error };
 }
 
-export async function answerQuestion(gameId: string, answer: string, questionId: string) {
+export async function answerQuestion(gameId: string, answer: string) {
   let result = null,
     error = null;
   try {
-    const { result: answerResult, error: answerError } = await checkAnswer(questionId, answer);
-    if (!answerError && answerResult) {
-      const questionObj: savedQuestion = {
-        questionId,
-        userAnswer: answer,
-        correctAnswer: answerResult?.correctAnswer,
-        question: answerResult.question,
-      };
-      if (answerResult.isRight) await updateGameAfterRightAnswer(gameId, questionObj);
-      else await updateGameAfterWrongAnswer(gameId, questionObj);
-      await createNewQuestion(gameId);
+    const { result: gameData, error: gameDataError } = await getGameData(gameId);
+    if (gameData && !gameDataError) {
+      const { result: answerResult, error: answerError } = await checkAnswer(
+        gameData.currentQuestion.id,
+        answer,
+      );
+      if (!answerError && answerResult) {
+        const questionObj: savedQuestion = {
+          questionId: gameData.currentQuestion.id,
+          userAnswer: answer,
+          correctAnswer: answerResult?.correctAnswer,
+          question: answerResult.question,
+        };
+        if (answerResult.isRight) await updateGameAfterRightAnswer(gameId, questionObj);
+        else await updateGameAfterWrongAnswer(gameId, questionObj);
+        await createNewQuestion(gameId);
+      }
+      result = answerResult;
     }
-    result = answerResult;
   } catch (e) {
     if (e instanceof FirestoreError) error = e.message;
     else error = 'Error occured';
