@@ -15,6 +15,7 @@ import {
 import { FirestoreError } from 'firebase/firestore';
 import { uuidv4 } from '@firebase/util';
 import { checkAnswer, getUniqueQuestion } from '@/helpers/questions';
+import { revalidatePath } from 'next/cache';
 
 const db = getFirestore(firebase_app);
 
@@ -120,6 +121,7 @@ export async function changeUserName(uid: string, userName: string) {
     if (e instanceof FirestoreError) error = e.message;
     else error = 'Error occured';
   }
+  revalidatePath('/profile');
   return { result, error };
 }
 
@@ -155,6 +157,7 @@ async function updateUserRecord(
     if (e instanceof FirestoreError) error = e.message;
     else error = 'Error occured';
   }
+  revalidatePath('/leaderboards');
   return { result, error };
 }
 
