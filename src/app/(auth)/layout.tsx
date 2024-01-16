@@ -1,7 +1,5 @@
 import { Box } from '@mui/material';
 
-import { useAuthContext } from '@/context/AuthContext';
-
 export const metadata = {
   title: 'Quiz Game | Auth page',
   description:
