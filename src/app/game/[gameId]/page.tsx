@@ -49,7 +49,7 @@ export default function Game({ params }: { params: { gameId: string } }) {
       } else enableNotification({ type: 'error', message: error || 'Error' });
     }
     fetchData();
-  }, [params.gameId, amount, enableNotification]);
+  }, [params.gameId, enableNotification]);
 
   function createOptions(data: string[]) {
     const newOptions: Option[] = data.map((el) => {
@@ -84,9 +84,6 @@ export default function Game({ params }: { params: { gameId: string } }) {
       const { result: questionData, error } = await answerQuestion(params.gameId, answer);
       if (!error && questionData) {
         changeOptionsColors(answer, questionData.correctAnswer);
-        setTimeout(() => {
-          setAmount(amount + 1);
-        }, 1000);
       } else enableNotification({ type: 'error', message: error || 'Error' });
     }
   }

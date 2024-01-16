@@ -311,6 +311,7 @@ export async function createNewQuestion(gameId: string) {
     if (e instanceof FirestoreError) error = e.message;
     else error = 'Error occured';
   }
+  revalidatePath(`/game/${gameId}`);
   return { result, error };
 }
 
@@ -341,6 +342,7 @@ export async function answerQuestion(gameId: string, answer: string) {
     if (e instanceof FirestoreError) error = e.message;
     else error = 'Error occured';
   }
+  revalidatePath(`/game/${gameId}`);
   return { result, error };
 }
 
