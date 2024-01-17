@@ -15,19 +15,29 @@ import { useNotificationContext } from '@/context/NotificationContext';
 import type { User, Game } from '@/firebase/db';
 import { capitalizeString, rewriteCategory } from '@/helpers/strings';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 
 interface UserGames extends Game {
   id: string;
 }
+
+type UserInfoFormValues = {
+  userName: string;
+};
 
 export default function Profile() {
   const { user } = useAuthContext();
   const { enableNotification } = useNotificationContext();
   const router = useRouter();
   const [data, setData] = useState<User | null>(null);
-  const [userName, setUserName] = useState('');
   const [allGames, setGames] = useState<UserGames[]>([]);
   const [unfinishedGames, setUnfinishedGames] = useState<UserGames[]>([]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<UserInfoFormValues>();
 
   useEffect(() => {
     if (user === null) router.push('/');
@@ -37,7 +47,6 @@ export default function Profile() {
           await getUserData(user.uid);
         if (!error && userData) {
           setData(userData);
-          setUserName(userData.userName);
         } else {
           enableNotification({ type: 'error', message: error || 'Error' });
         }
@@ -64,10 +73,9 @@ export default function Profile() {
     fetchData();
   }, [user, router, enableNotification]);
 
-  async function handleForm(e: any) {
-    e.preventDefault();
+  async function handleForm(data: UserInfoFormValues) {
     if (user) {
-      const { result, error } = await changeUserName(user?.uid, userName);
+      const { result, error } = await changeUserName(user?.uid, data.userName);
       if (!error)
         enableNotification({ type: 'success', message: 'Successfully updated username!' });
       else enableNotification({ type: 'error', message: error || 'Error' });
@@ -83,14 +91,14 @@ export default function Profile() {
         <>
           <Box
             component="form"
-            onSubmit={handleForm}
+            onSubmit={handleSubmit(handleForm)}
             margin="16px 0"
             minWidth={{ xs: '300px', sm: '450px' }}
             width="fit-content"
             paddingBottom="16px"
             borderBottom="1px solid #9c27b0">
             <Typography component="h2" fontSize="18px">
-              User name & email
+              Name & email
             </Typography>
             <Box
               display="flex"
@@ -98,16 +106,22 @@ export default function Profile() {
               gap="16px"
               margin="16px 0">
               <TextField color="secondary" label="Email" disabled value={user?.email || ''} />
-              <TextField
-                color="secondary"
-                label="Username"
-                onChange={(e) => setUserName(e.target.value)}
-                value={userName}
-              />
+              <Box display="flex" flexDirection="column" gap="4px">
+                <TextField
+                  {...register('userName', {
+                    required: 'UserName is required',
+                    value: data.userName,
+                  })}
+                  color="secondary"
+                  label="Username"
+                />
+                {errors.userName && <Typography>{errors.userName.message}</Typography>}
+              </Box>
             </Box>
             <Button
               variant="contained"
               color="secondary"
+              disabled={isSubmitting}
               size="small"
               type="submit"
               sx={{ textTransform: 'capitalize' }}>
@@ -121,7 +135,7 @@ export default function Profile() {
             paddingBottom="16px"
             borderBottom="1px solid #9c27b0">
             <Typography component="h2" fontSize="18px">
-              User records:
+              Best records:
             </Typography>
             <Box display="flex" gap="32px" margin="16px 0">
               <DifficultyRecord difficulty="easy" record={data.easyModeRecord} />

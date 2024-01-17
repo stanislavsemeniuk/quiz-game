@@ -25,7 +25,6 @@ export default function Header() {
   async function handleLogOut(e: any) {
     e.preventDefault();
     const result = await logOut();
-    console.log(result);
   }
 
   useEffect(() => {

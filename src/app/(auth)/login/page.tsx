@@ -1,5 +1,6 @@
 'use client';
 import { TextField, Box, Typography, Button } from '@mui/material';
+import { useForm, Resolver } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -7,31 +8,36 @@ import { useAuthContext } from '@/context/AuthContext';
 import { useNotificationContext } from '@/context/NotificationContext';
 import { signIn } from '@/firebase/auth';
 
+type FormValues = {
+  email: string;
+  password: string;
+};
+
 export default function Login() {
   const { user } = useAuthContext();
   const { enableNotification } = useNotificationContext();
   const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<FormValues>();
 
   useEffect(() => {
     if (user !== null) router.push('/');
   }, [user]);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  async function handleLogin(e: any) {
-    e.preventDefault();
-    const { result: userCredentials, error } = await signIn(email, password);
-    if (error) {
-      if (error || userCredentials) {
-        enableNotification({ type: 'error', message: error as string });
-      }
+  async function handleLogin(data: FormValues) {
+    const { result: userCredentials, error } = await signIn(data.email, data.password);
+    reset();
+    if (error || !userCredentials) {
+      enableNotification({ type: 'error', message: error || 'Error occured' });
     }
-    return userCredentials;
   }
 
   return (
-    <Box onSubmit={handleLogin} component="form" display="contents">
+    <Box onSubmit={handleSubmit(handleLogin)} component="form" display="contents">
       <Typography fontSize="24px" component="h1" textAlign="center">
         Login
       </Typography>
@@ -42,20 +48,37 @@ export default function Login() {
         flexDirection="column"
         justifyContent="center"
         gap="16px">
-        <TextField
-          onChange={(e) => setEmail(e.target.value)}
-          color="secondary"
-          label="Email"
-          type="email"
-        />
-        <TextField
-          onChange={(e) => setPassword(e.target.value)}
-          color="secondary"
-          label="Password"
-          type="password"
-        />
+        <Box display="flex" flexDirection="column" gap="4px">
+          <TextField
+            {...register('email', { required: 'Email is required' })}
+            color="secondary"
+            label="Email"
+            type="email"
+          />
+          {errors.email && (
+            <Typography color="red" fontSize="12px">
+              {errors.email.message}
+            </Typography>
+          )}
+        </Box>
+        <Box display="flex" flexDirection="column" gap="4px">
+          <TextField
+            {...register('password', {
+              required: 'Password is required',
+              minLength: { value: 6, message: 'Password must be at least 6 characters' },
+            })}
+            color="secondary"
+            label="Password"
+            type="password"
+          />
+          {errors.password && (
+            <Typography color="red" fontSize="12px">
+              {errors.password.message}
+            </Typography>
+          )}
+        </Box>
       </Box>
-      <Button variant="contained" color="secondary" type="submit">
+      <Button variant="contained" color="secondary" disabled={isSubmitting} type="submit">
         Login
       </Button>
     </Box>
