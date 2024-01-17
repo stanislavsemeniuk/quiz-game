@@ -6,11 +6,15 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { getGameData } from '@/firebase/db';
 import { rewriteCategory } from '@/helpers/strings';
 
+export const metadata = {
+  title: 'Game Information | Quiz Game',
+};
+
 export default async function GameInformation({ params }: { params: { gameId: string } }) {
   const { result: gameData } = await getGameData(params.gameId);
 
   return (
-    <Box width="80%" margin="0 auto">
+    <>
       {gameData ? (
         <>
           <Typography component="h1" fontSize="24px">
@@ -49,7 +53,7 @@ export default async function GameInformation({ params }: { params: { gameId: st
       ) : (
         ''
       )}
-    </Box>
+    </>
   );
 }
 

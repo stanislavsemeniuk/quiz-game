@@ -83,7 +83,7 @@ export default function Profile() {
   }
 
   return (
-    <Box width="80%" margin="0 auto">
+    <>
       <Typography component="h1" fontSize="24px">
         Your profile
       </Typography>
@@ -203,7 +203,7 @@ export default function Profile() {
       ) : (
         <Typography>Loading...</Typography>
       )}
-    </Box>
+    </>
   );
 }
 

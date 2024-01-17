@@ -51,55 +51,48 @@ export default function Game() {
   }
 
   return (
-    <Box
-      flexGrow="1"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center">
-      <Box display="flex" flexDirection="column" gap="24px" minWidth="400px" alignItems="center">
-        <Button
-          sx={{ width: 'fit-content' }}
-          onClick={() => startNewGame()}
-          variant="contained"
-          color="secondary">
-          <PlayArrowIcon />
-        </Button>
-        <FormControl fullWidth>
-          <InputLabel id="difficulty-label">Difficulty</InputLabel>
-          <Select
-            color="secondary"
-            variant="filled"
-            labelId="difficulty-label"
-            id="demo-simple-select"
-            value={chosenDifficulty || ''}
-            label="Difficulty"
-            onChange={(e) => setDifficulty(e.target.value)}>
-            {difficulties.map((difficulty, index) => (
-              <MenuItem key={index} value={difficulty}>
-                {capitalizeString(difficulty)}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel id="category-label">Category</InputLabel>
-          <Select
-            color="secondary"
-            variant="filled"
-            labelId="category-label"
-            id="demo-simple-select"
-            value={chosenCategory || ''}
-            label="Category"
-            onChange={(e) => setCategory(e.target.value)}>
-            {categories.map((category, index) => (
-              <MenuItem key={index} value={category}>
-                {rewriteCategory(category)}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
+    <Box display="flex" flexDirection="column" gap="24px" minWidth="400px" alignItems="center">
+      <Button
+        sx={{ width: 'fit-content' }}
+        onClick={() => startNewGame()}
+        variant="contained"
+        color="secondary">
+        <PlayArrowIcon />
+      </Button>
+      <FormControl fullWidth>
+        <InputLabel id="difficulty-label">Difficulty</InputLabel>
+        <Select
+          color="secondary"
+          variant="filled"
+          labelId="difficulty-label"
+          id="demo-simple-select"
+          value={chosenDifficulty || ''}
+          label="Difficulty"
+          onChange={(e) => setDifficulty(e.target.value)}>
+          {difficulties.map((difficulty, index) => (
+            <MenuItem key={index} value={difficulty}>
+              {capitalizeString(difficulty)}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel id="category-label">Category</InputLabel>
+        <Select
+          color="secondary"
+          variant="filled"
+          labelId="category-label"
+          id="demo-simple-select"
+          value={chosenCategory || ''}
+          label="Category"
+          onChange={(e) => setCategory(e.target.value)}>
+          {categories.map((category, index) => (
+            <MenuItem key={index} value={category}>
+              {rewriteCategory(category)}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </Box>
   );
 }

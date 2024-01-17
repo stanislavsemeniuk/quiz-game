@@ -4,6 +4,11 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import { getBestRecords } from '@/firebase/db';
 
+export const metadata = {
+  title: 'Leaderboards | Quiz Game',
+  description: 'Test your skills and compete with others to reach the top of the leaderboard!',
+};
+
 export default async function Leaderboards() {
   const { result: easyModeRecords } = await getBestRecords('easy');
   const { result: mediumModeRecords } = await getBestRecords('medium');

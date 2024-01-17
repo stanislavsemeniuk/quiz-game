@@ -91,12 +91,7 @@ export default function Game({ params }: { params: { gameId: string } }) {
   }
 
   return (
-    <Box
-      flexGrow="1"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center">
+    <>
       {data ? (
         !data.isGameOver ? (
           <>
@@ -173,6 +168,6 @@ export default function Game({ params }: { params: { gameId: string } }) {
       ) : (
         <Loading />
       )}
-    </Box>
+    </>
   );
 }

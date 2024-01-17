@@ -4,7 +4,7 @@ import NotificationContextProvider from '@/context/NotificationContext';
 import './globals.css';
 
 export const metadata = {
-  title: 'Quiz Game',
+  title: 'Main | Quiz Game',
   description:
     'Challenge your knowledge in various categories and have fun while answering exciting questions.',
 };

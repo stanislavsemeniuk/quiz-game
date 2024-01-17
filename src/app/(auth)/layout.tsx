@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
 
 export const metadata = {
-  title: 'Quiz Game | Auth page',
+  title: 'Auth page | Quiz Game',
   description:
     'To start playing and enjoying the game, register your account now and dive into the world of quizzes!',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <Box
       flexGrow="1"
