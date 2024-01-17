@@ -3,7 +3,7 @@ import Loading from '@/components/Loading';
 
 export default function LoadingPage() {
   return (
-    <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
+    <Box width="100%" flexGrow="1" display="flex" alignItems="center" justifyContent="center">
       <Loading />
     </Box>
   );

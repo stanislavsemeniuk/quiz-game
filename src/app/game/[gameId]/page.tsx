@@ -90,7 +90,7 @@ export default function Game({ params }: { params: { gameId: string } }) {
 
   return (
     <Box
-      height="100vh"
+      flexGrow="1"
       display="flex"
       flexDirection="column"
       justifyContent="center"

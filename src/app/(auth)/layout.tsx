@@ -9,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <Box
-      height="100%"
+      flexGrow="1"
       display="flex"
       alignItems="center"
       justifyContent="center"

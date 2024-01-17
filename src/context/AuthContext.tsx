@@ -30,15 +30,7 @@ export default function AuthContextProvider({ children }: { children: React.Reac
   return (
     <AuthContext.Provider value={{ user }}>
       {loading ? (
-        <Box
-          position="fixed"
-          left="0"
-          top="0"
-          width="100%"
-          height="100%"
-          display="flex"
-          alignItems="center"
-          justifyContent="center">
+        <Box width="100%" flexGrow="1" display="flex" alignItems="center" justifyContent="center">
           <Loading />
         </Box>
       ) : (

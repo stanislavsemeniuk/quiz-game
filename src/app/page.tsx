@@ -10,7 +10,6 @@ export default function Home() {
   return (
     <Box
       display="flex"
-      height="100%"
       flexGrow="1"
       width="100%"
       flexDirection="column"

@@ -52,7 +52,7 @@ export default function Game() {
 
   return (
     <Box
-      minHeight="100%"
+      flexGrow="1"
       display="flex"
       flexDirection="column"
       justifyContent="center"
