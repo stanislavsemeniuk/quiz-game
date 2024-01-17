@@ -85,14 +85,18 @@ export default function Profile() {
             component="form"
             onSubmit={handleForm}
             margin="16px 0"
-            minWidth="450px"
+            minWidth={{ xs: '300px', sm: '450px' }}
             width="fit-content"
             paddingBottom="16px"
             borderBottom="1px solid #9c27b0">
             <Typography component="h2" fontSize="18px">
               User name & email
             </Typography>
-            <Box display="flex" gap="16px" margin="16px 0">
+            <Box
+              display="flex"
+              flexDirection={{ xs: 'column', sm: 'row' }}
+              gap="16px"
+              margin="16px 0">
               <TextField color="secondary" label="Email" disabled value={user?.email || ''} />
               <TextField
                 color="secondary"
@@ -112,7 +116,7 @@ export default function Profile() {
           </Box>
           <Box
             margin="16px 0"
-            minWidth="450px"
+            minWidth={{ xs: '300px', sm: '450px' }}
             width="fit-content"
             paddingBottom="16px"
             borderBottom="1px solid #9c27b0">
@@ -128,7 +132,7 @@ export default function Profile() {
           {unfinishedGames.length > 0 ? (
             <Box
               margin="16px 0"
-              minWidth="450px"
+              minWidth={{ xs: '300px', sm: '450px' }}
               width="fit-content"
               paddingBottom="16px"
               borderBottom="1px solid #9c27b0">
@@ -156,7 +160,7 @@ export default function Profile() {
           {allGames.length > 0 ? (
             <Box
               margin="16px 0"
-              minWidth="450px"
+              minWidth={{ xs: '300px', sm: '450px' }}
               width="fit-content"
               paddingBottom="16px"
               borderBottom="1px solid #9c27b0">
@@ -221,7 +225,7 @@ function ShortGameInfo({
   isFinished: boolean;
 }) {
   return (
-    <Box display="grid" gridTemplateColumns="0.5fr 1fr 2fr 0.5fr ">
+    <Box display="grid" gridTemplateColumns="0.5fr 1fr 2fr 0.5fr" gap="16px">
       <Link href={isFinished ? `/profile/games/${id}` : `/game/${id}`}>
         {isFinished ? <LinkIcon color="secondary" /> : <PlayArrowIcon color="secondary" />}
       </Link>

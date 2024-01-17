@@ -15,7 +15,8 @@ export default function Home() {
       width="100%"
       flexDirection="column"
       justifyContent="center"
-      alignContent="center">
+      alignContent="center"
+      padding="0 32px">
       <Box maxWidth="600px" margin="0 auto">
         {user ? (
           <Box display="flex" flexDirection="column" alignItems="center">

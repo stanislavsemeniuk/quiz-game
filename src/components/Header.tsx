@@ -40,7 +40,11 @@ export default function Header() {
   }, [user, enableNotification]);
 
   return (
-    <Box component="header" padding="16px 48px" display="flex" justifyContent="space-between">
+    <Box
+      component="header"
+      padding={{ xs: '16px', sm: '16px 48px' }}
+      display="flex"
+      justifyContent="space-between">
       {user ? (
         <>
           <Box display="flex" gap="16px">

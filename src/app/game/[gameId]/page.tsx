@@ -99,9 +99,8 @@ export default function Game({ params }: { params: { gameId: string } }) {
         !data.isGameOver ? (
           <>
             {question ? (
-              <Box minWidth="600px" maxWidth="800px">
+              <Box minWidth={{ xs: '200px', sm: '600px' }} maxWidth={{ xs: '350px', sm: '800px' }}>
                 <Box
-                  boxSizing="border-box"
                   marginBottom="16px"
                   padding="16px 32px"
                   borderRadius="16px"
@@ -139,7 +138,11 @@ export default function Game({ params }: { params: { gameId: string } }) {
             ) : (
               <Loading />
             )}
-            <Box display="flex" justifyContent="space-between" marginTop="24px" minWidth="400px">
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              marginTop="24px"
+              minWidth={{ xs: '175px', sm: '400px' }}>
               <Box display="flex" flexDirection="column" gap="8px">
                 <Box display="flex" gap="8px">
                   <EmojiEventsIcon color="secondary" />

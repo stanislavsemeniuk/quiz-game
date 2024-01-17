@@ -13,7 +13,11 @@ export default async function Leaderboards() {
       <Typography component="h1" fontSize="24px" marginBottom="32px">
         Leaderboards
       </Typography>
-      <Box display="flex" justifyContent="space-around">
+      <Box
+        display="flex"
+        flexDirection={{ xs: 'column', sm: 'row' }}
+        gap={{ xs: '32px', sm: '0' }}
+        justifyContent="space-around">
         <Box>
           <Typography component="h2" fontSize="18px" marginBottom="24px">
             Easy mode:
