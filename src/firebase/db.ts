@@ -226,7 +226,7 @@ export type Game = {
 export async function createGame(
   uid: string,
   category: string = 'all',
-  difficulty: 'easy' | 'medium' | 'hard' = 'easy',
+  difficulty: string = 'easy',
 ) {
   let result = null,
     error = null;
