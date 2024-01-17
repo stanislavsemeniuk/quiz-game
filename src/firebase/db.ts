@@ -213,7 +213,7 @@ export type Question = {
 };
 
 export type Game = {
-  currentQuestion: Question;
+  currentQuestion: Question | null;
   difficulty: 'easy' | 'medium' | 'hard';
   category: string;
   isGameOver: boolean;
@@ -288,12 +288,12 @@ async function getAskedQuestions(gameId: string) {
   return { result, error };
 }
 
-//TODO: check if game is finished
 export async function createNewQuestion(gameId: string) {
   let result = null,
     error = null;
   try {
     const { result: gameData, error: gameDataError } = await getGameData(gameId);
+    if (gameData?.isGameOver) return { result: null, error: null };
     const { result: askedQuestions, error: askedQuestionsError } = await getAskedQuestions(gameId);
     if (askedQuestions && !askedQuestionsError && gameData && !gameDataError) {
       const {
@@ -324,7 +324,7 @@ export async function answerQuestion(gameId: string, answer: string) {
     error = null;
   try {
     const { result: gameData, error: gameDataError } = await getGameData(gameId);
-    if (gameData && !gameDataError) {
+    if (gameData && !gameDataError && gameData.currentQuestion) {
       const { result: answerResult, error: answerError } = await checkAnswer(
         gameData.currentQuestion.id,
         answer,

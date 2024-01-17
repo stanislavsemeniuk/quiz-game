@@ -43,8 +43,10 @@ export default function Game({ params }: { params: { gameId: string } }) {
         await getGameData(params.gameId);
       if (!error && gameData) {
         setData(gameData);
-        setQuestion(gameData.currentQuestion);
-        createOptions(gameData.currentQuestion.options);
+        if (gameData.currentQuestion) {
+          setQuestion(gameData.currentQuestion);
+          createOptions(gameData.currentQuestion.options);
+        }
         setIsOptionsDisabled(false);
       } else enableNotification({ type: 'error', message: error || 'Error' });
     }
