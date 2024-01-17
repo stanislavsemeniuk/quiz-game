@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   getAuth,
   signOut,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 
@@ -29,6 +30,18 @@ export async function signIn(email: string, password: string) {
     error = null;
   try {
     result = await signInWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    if (e instanceof FirebaseError) error = e.message;
+    else error = 'Error occured';
+  }
+  return { result, error };
+}
+
+export async function resetPassword(email: string) {
+  let result = null,
+    error = null;
+  try {
+    result = await sendPasswordResetEmail(auth, email);
   } catch (e) {
     if (e instanceof FirebaseError) error = e.message;
     else error = 'Error occured';

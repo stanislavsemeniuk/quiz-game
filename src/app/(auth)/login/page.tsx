@@ -1,7 +1,8 @@
 'use client';
 import { TextField, Box, Typography, Button } from '@mui/material';
-import { useForm, Resolver } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useAuthContext } from '@/context/AuthContext';
@@ -81,6 +82,14 @@ export default function Login() {
       <Button variant="contained" color="secondary" disabled={isSubmitting} type="submit">
         Login
       </Button>
+      <Box margin="16px 0" display="flex" justifyContent="space-around">
+        <Link href="/register">
+          <Typography fontSize="12px">Don&apos;t have an account?</Typography>
+        </Link>
+        <Link href="/forgot-password">
+          <Typography fontSize="12px">Forgot your password?</Typography>
+        </Link>
+      </Box>
     </Box>
   );
 }

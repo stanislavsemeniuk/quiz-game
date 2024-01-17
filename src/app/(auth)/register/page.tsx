@@ -1,8 +1,9 @@
 'use client';
 
 import { Box, Typography, TextField, Button } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import { useAuthContext } from '@/context/AuthContext';
 import { useNotificationContext } from '@/context/NotificationContext';
@@ -99,6 +100,11 @@ export default function Register() {
       <Button disabled={isSubmitting} variant="contained" color="secondary" type="submit">
         Register
       </Button>
+      <Box margin="16px 0" display="flex" justifyContent="space-around">
+        <Link href="/login">
+          <Typography fontSize="12px">Already have an account? Sign in</Typography>
+        </Link>
+      </Box>
     </Box>
   );
 }
