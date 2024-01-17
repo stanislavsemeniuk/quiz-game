@@ -14,7 +14,7 @@ export default function GameOver({
 }) {
   return (
     <Box
-      width="40%"
+      width={{ xs: '80%', sm: '40%' }}
       minHeight="40%"
       borderRadius="16px"
       padding="16px"
@@ -49,10 +49,10 @@ export default function GameOver({
           </Typography>
         </Box>
       </Box>
-      <Box display="flex" width="100%" justifyContent="space-around">
+      <Box display="flex" width="100%" gap="16px" justifyContent="space-around">
         <Link href="/game">
           <Button
-            size="large"
+            size="small"
             color="secondary"
             variant="contained"
             sx={{ textTransform: 'capitalize' }}>
@@ -61,7 +61,7 @@ export default function GameOver({
         </Link>
         <Link href="/profile">
           <Button
-            size="large"
+            size="small"
             color="secondary"
             variant="contained"
             sx={{ textTransform: 'capitalize' }}>

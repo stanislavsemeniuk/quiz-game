@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       justifyContent="center"
       sx={{ background: 'rgba(0,0,0,.2)' }}>
       <Box
-        width={{ xs: '60%', sm: '40%' }}
+        width={{ xs: '80%', sm: '40%' }}
         minHeight="40%"
         borderRadius="16px"
         padding="16px"
