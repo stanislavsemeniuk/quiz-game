@@ -46,7 +46,7 @@ export default function Header() {
       justifyContent="space-between">
       {user ? (
         <>
-          <Box display="flex" gap="16px">
+          <Box display="flex" gap="16px" alignItems="center">
             <Link href="/">
               <HomeIcon color="secondary" sx={{ width: '32px', height: '32px' }} />
             </Link>
@@ -57,16 +57,14 @@ export default function Header() {
               <LeaderboardIcon color="secondary" sx={{ width: '32px', height: '32px' }} />
             </Link>
           </Box>
-          <Box display="flex" gap="16px">
-            {username ? (
+          <Box display="flex" gap="16px" alignItems="center">
+            {username && (
               <Link href="/profile">
                 <Box display="flex" gap="4px" alignItems="center">
                   <AccountBoxIcon color="secondary" sx={{ width: '32px', height: '32px' }} />
                   <Typography>{username}</Typography>
                 </Box>
               </Link>
-            ) : (
-              <p>Loading...</p>
             )}
 
             <Button onClick={handleLogOut}>
