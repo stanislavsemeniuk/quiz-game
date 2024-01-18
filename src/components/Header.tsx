@@ -22,7 +22,7 @@ export default function Header() {
 
   const [username, setUsername] = useState<string>('');
 
-  async function handleLogOut(e: any) {
+  async function handleLogOut(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
     const result = await logOut();
   }
@@ -69,12 +69,12 @@ export default function Header() {
               <p>Loading...</p>
             )}
 
-            <Box onClick={handleLogOut}>
+            <Button onClick={handleLogOut}>
               <LogoutIcon
                 color="secondary"
                 sx={{ width: '32px', height: '32px', cursor: 'pointer' }}
               />
-            </Box>
+            </Button>
           </Box>
         </>
       ) : (
