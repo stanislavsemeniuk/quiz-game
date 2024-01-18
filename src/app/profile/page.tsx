@@ -16,7 +16,7 @@ import { useAuthContext } from '@/context/AuthContext';
 import { useNotificationContext } from '@/context/NotificationContext';
 import type { User, UserGames } from '@/firebase/db';
 import { capitalizeString, rewriteCategory } from '@/helpers/strings';
-import { revalidateProfilePage } from '@/helpers/revalidate';
+import { revalidateLeaderboardsPage, revalidateProfilePage } from '@/helpers/revalidate';
 
 type UserInfoFormValues = {
   userName: string;
@@ -76,6 +76,7 @@ export default function Profile() {
       if (!error) {
         enableNotification({ type: 'success', message: 'Successfully updated username!' });
         await revalidateProfilePage();
+        await revalidateLeaderboardsPage();
       } else enableNotification({ type: 'error', message: error || 'Error' });
     }
   }

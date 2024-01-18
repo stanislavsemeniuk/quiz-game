@@ -15,6 +15,7 @@ import {
 import { FirestoreError } from 'firebase/firestore';
 import { uuidv4 } from '@firebase/util';
 import { checkAnswer, getUniqueQuestion } from '@/helpers/questions';
+import { revalidateProfilePage, revalidateLeaderboardsPage } from '@/helpers/revalidate';
 
 const db = getFirestore(firebase_app);
 
@@ -155,6 +156,8 @@ async function updateUserRecord(
     if (e instanceof FirestoreError) error = e.message;
     else error = 'Error occured';
   }
+  revalidateProfilePage();
+  revalidateLeaderboardsPage();
   return { result, error };
 }
 
