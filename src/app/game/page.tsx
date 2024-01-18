@@ -66,7 +66,7 @@ export default function Game() {
       component="form"
       flexDirection="column"
       gap="24px"
-      minWidth="400px"
+      minWidth={{ xs: '250px', sm: '400px' }}
       alignItems="center">
       <Button
         disabled={isSubmitting}

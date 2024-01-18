@@ -144,7 +144,12 @@ export default function Game({ params }: { params: { gameId: string } }) {
               justifyContent="space-between"
               marginTop="24px"
               minWidth={{ xs: '175px', sm: '400px' }}>
-              <Box display="flex" flexDirection="column" gap="8px">
+              <Box
+                display="flex"
+                flexDirection={{ xs: 'row', sm: 'column' }}
+                justifyContent={{ xs: 'space-between', sm: 'start' }}
+                width={{ xs: '100%', sm: 'unset' }}
+                gap="8px">
                 <Box display="flex" gap="8px">
                   <EmojiEventsIcon color="secondary" />
                   <Typography>{data.score}</Typography>
@@ -154,7 +159,7 @@ export default function Game({ params }: { params: { gameId: string } }) {
                   <Typography> {data.mistakes}</Typography>
                 </Box>
               </Box>
-              <Box display="flex" flexDirection="column" gap="8px">
+              <Box display={{ xs: 'none', sm: 'flex' }} flexDirection="column" gap="8px">
                 <Box display="flex" gap="8px">
                   <SpeedIcon color="secondary" />
                   <Typography>{rewriteCategory(data.difficulty)}</Typography>
