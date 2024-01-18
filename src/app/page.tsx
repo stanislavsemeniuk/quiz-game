@@ -1,6 +1,8 @@
 'use client';
 
 import { Box, Button, Typography } from '@mui/material';
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Link from 'next/link';
 
 import { useAuthContext } from '@/context/AuthContext';
@@ -18,7 +20,7 @@ export default function Home() {
       padding="0 32px">
       <Box maxWidth="600px" margin="0 auto">
         {user ? (
-          <Box display="flex" flexDirection="column" alignItems="center">
+          <Box display="flex" flexDirection="column" alignItems="center" gap="24px">
             <Link href="/game">
               <Button
                 size="large"
@@ -29,19 +31,30 @@ export default function Home() {
               </Button>
             </Link>
             <Link href="/profile">
-              <Typography marginTop="24px">Go to profile</Typography>
+              <Box display="flex" gap="8px" alignItems="center">
+                <AccountBoxIcon />
+                <Typography>Profile</Typography>
+              </Box>
+            </Link>
+            <Link href="/leaderboards">
+              <Box display="flex" gap="8px" alignItems="center">
+                <LeaderboardIcon />
+                <Typography>Leaderboards</Typography>
+              </Box>
             </Link>
           </Box>
         ) : (
           <>
-            <Typography component="h3">Welcome to our Quiz Game!</Typography>
-            <Typography>
+            <Typography textAlign={{ xs: 'justify', sm: 'left' }} component="h1" fontSize="36px">
+              Welcome to the Quiz Game!
+            </Typography>
+            <Typography textAlign={{ xs: 'justify', sm: 'left' }} fontSize="18px" margin="16px 0">
               Challenge your knowledge in various categories and have fun while answering exciting
               questions. To start playing and enjoying the game, register your account now and dive
               into the world of quizzes! Test your skills and compete with others to reach the top
               of the leaderboard.
             </Typography>
-            <Typography>
+            <Typography textAlign={{ xs: 'justify', sm: 'left' }} fontSize="18px" margin="16px 0">
               Get ready to embark on a thrilling journey of learning and entertainment. Sign up and
               let the games begin!
             </Typography>

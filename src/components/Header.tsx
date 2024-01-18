@@ -10,7 +10,6 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 
-import type { User } from '@/firebase/db';
 import { logOut } from '@/firebase/auth';
 import { getUserData } from '@/firebase/db';
 import { useAuthContext } from '@/context/AuthContext';
@@ -58,14 +57,12 @@ export default function Header() {
             </Link>
           </Box>
           <Box display="flex" gap="16px" alignItems="center">
-            {username && (
-              <Link href="/profile">
-                <Box display="flex" gap="4px" alignItems="center">
-                  <AccountBoxIcon color="secondary" sx={{ width: '32px', height: '32px' }} />
-                  <Typography>{username}</Typography>
-                </Box>
-              </Link>
-            )}
+            <Link href="/profile">
+              <Box display="flex" gap="4px" alignItems="center">
+                <AccountBoxIcon color="secondary" sx={{ width: '32px', height: '32px' }} />
+                <Typography>{username ? username : '...'}</Typography>
+              </Box>
+            </Link>
 
             <Button onClick={handleLogOut}>
               <LogoutIcon
@@ -76,7 +73,7 @@ export default function Header() {
           </Box>
         </>
       ) : (
-        <Box display="flex" gap="16px">
+        <Box display="flex" gap="16px" width="100%" justifyContent="flex-end">
           <Link href="/login">
             <Button
               sx={{ textTransform: 'capitalize' }}
@@ -93,7 +90,7 @@ export default function Header() {
               variant="contained"
               size="small"
               color="secondary">
-              register
+              Register
             </Button>
           </Link>
         </Box>

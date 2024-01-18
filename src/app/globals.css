@@ -24,4 +24,9 @@ a:active {
   text-decoration: none;
   outline: none;
   color: inherit;
+  transition: 0.3s;
+}
+
+a:hover {
+  opacity: 0.5;
 }

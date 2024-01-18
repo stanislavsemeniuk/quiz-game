@@ -8,12 +8,7 @@ export const metadata = {
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Box
-      flexGrow="1"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      sx={{ background: 'rgba(0,0,0,.2)' }}>
+    <Box flexGrow="1" display="flex" alignItems="center" justifyContent="center">
       <Box
         width={{ xs: '80%', sm: '40%' }}
         minHeight="40%"
