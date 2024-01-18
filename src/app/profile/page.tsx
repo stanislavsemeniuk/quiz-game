@@ -12,14 +12,10 @@ import LinkIcon from '@mui/icons-material/Link';
 import { getUserData, changeUserName, getUserGames, getUnfinishedUserGames } from '@/firebase/db';
 import { useAuthContext } from '@/context/AuthContext';
 import { useNotificationContext } from '@/context/NotificationContext';
-import type { User, Game } from '@/firebase/db';
+import type { User, UserGames } from '@/firebase/db';
 import { capitalizeString, rewriteCategory } from '@/helpers/strings';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-
-interface UserGames extends Game {
-  id: string;
-}
 
 type UserInfoFormValues = {
   userName: string;

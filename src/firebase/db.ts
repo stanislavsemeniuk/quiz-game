@@ -299,7 +299,7 @@ export async function createNewQuestion(gameId: string) {
       const {
         result: questionData,
         error: questionDataError,
-      }: { result: Question | null; error: any } = await getUniqueQuestion(
+      }: { result: Question | null; error: string | null } = await getUniqueQuestion(
         gameData.category,
         gameData.difficulty,
         askedQuestions,
@@ -391,13 +391,17 @@ async function checkAmountOfMistakes(gameId: string) {
   }
 }
 
+export interface UserGames extends Game {
+  id: string;
+}
+
 export async function getUserGames(uid: string) {
-  let result: any = [],
+  let result: UserGames[] = [],
     error = null;
   try {
     const gamesSnapshots = await getDocs(gamesRef);
     gamesSnapshots.forEach((doc) => {
-      const game = doc.data();
+      const game = doc.data() as Game;
       if (game.user === uid) result.push({ ...game, id: doc.id });
     });
   } catch (e) {
@@ -408,7 +412,7 @@ export async function getUserGames(uid: string) {
 }
 
 export async function getUnfinishedUserGames(uid: string) {
-  let result: any = [],
+  let result: UserGames[] = [],
     error = null;
   try {
     const { result: games, error: getGamesError } = await getUserGames(uid);

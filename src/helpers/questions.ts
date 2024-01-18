@@ -31,7 +31,11 @@ async function getQuestions(category: string, difficulty: string, limit: number)
     );
     result = await response.json();
   } catch (e) {
-    error = e;
+    if (typeof e === 'string') {
+      error = e;
+    } else if (e instanceof Error) {
+      error = e.message;
+    }
   }
   return { result, error };
 }
@@ -42,7 +46,7 @@ export async function getUniqueQuestion(
   askedQuestions: string[],
 ): Promise<{
   result: Question | null;
-  error: unknown;
+  error: string | null;
 }> {
   let result: Question | null = null,
     error = null;
@@ -68,7 +72,11 @@ export async function getUniqueQuestion(
       }
     }
   } catch (e) {
-    error = e;
+    if (typeof e === 'string') {
+      error = e;
+    } else if (e instanceof Error) {
+      error = e.message;
+    }
   }
   if (!result) return await getUniqueQuestion(category, difficulty, askedQuestions);
   return { result, error };
@@ -86,7 +94,11 @@ export async function checkAnswer(id: string, userAnswer: string) {
       question: data.question.text,
     };
   } catch (e) {
-    error = e;
+    if (typeof e === 'string') {
+      error = e;
+    } else if (e instanceof Error) {
+      error = e.message;
+    }
   }
   return { result, error };
 }
