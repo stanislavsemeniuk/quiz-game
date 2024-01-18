@@ -8,14 +8,15 @@ import CategoryIcon from '@mui/icons-material/Category';
 import SpeedIcon from '@mui/icons-material/Speed';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import LinkIcon from '@mui/icons-material/Link';
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 
 import { getUserData, changeUserName, getUserGames, getUnfinishedUserGames } from '@/firebase/db';
 import { useAuthContext } from '@/context/AuthContext';
 import { useNotificationContext } from '@/context/NotificationContext';
 import type { User, UserGames } from '@/firebase/db';
 import { capitalizeString, rewriteCategory } from '@/helpers/strings';
-import Link from 'next/link';
-import { useForm } from 'react-hook-form';
+import { revalidateProfilePage } from '@/helpers/revalidate';
 
 type UserInfoFormValues = {
   userName: string;
@@ -72,9 +73,10 @@ export default function Profile() {
   async function handleForm(data: UserInfoFormValues) {
     if (user) {
       const { result, error } = await changeUserName(user?.uid, data.userName);
-      if (!error)
+      if (!error) {
         enableNotification({ type: 'success', message: 'Successfully updated username!' });
-      else enableNotification({ type: 'error', message: error || 'Error' });
+        await revalidateProfilePage();
+      } else enableNotification({ type: 'error', message: error || 'Error' });
     }
   }
 

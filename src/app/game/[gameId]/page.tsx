@@ -15,6 +15,7 @@ import { rewriteCategory } from '@/helpers/strings';
 import { useAuthContext } from '@/context/AuthContext';
 import { useNotificationContext } from '@/context/NotificationContext';
 import type { Game, Question } from '@/firebase/db';
+import { revalidateGameInformation } from '@/helpers/revalidate';
 
 type Option = {
   answer: string;
@@ -86,6 +87,9 @@ export default function Game({ params }: { params: { gameId: string } }) {
       const { result: questionData, error } = await answerQuestion(params.gameId, answer);
       if (!error && questionData) {
         changeOptionsColors(answer, questionData.correctAnswer);
+        setTimeout(async () => {
+          await revalidateGameInformation(params.gameId);
+        }, 1000);
       } else enableNotification({ type: 'error', message: error || 'Error' });
     }
   }
