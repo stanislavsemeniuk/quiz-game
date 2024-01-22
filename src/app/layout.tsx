@@ -1,3 +1,5 @@
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+
 import Header from '@/components/Header';
 import AuthContextProvider from '@/context/AuthContext';
 import NotificationContextProvider from '@/context/NotificationContext';
@@ -13,12 +15,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <AuthContextProvider>
-          <NotificationContextProvider>
-            <Header />
-            {children}
-          </NotificationContextProvider>
-        </AuthContextProvider>
+        <AppRouterCacheProvider>
+          <AuthContextProvider>
+            <NotificationContextProvider>
+              <Header />
+              {children}
+            </NotificationContextProvider>
+          </AuthContextProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
