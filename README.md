@@ -1,4 +1,10 @@
+## Quiz Game app
+
 This engaging Quiz Game project offers a delightful gaming experience, combining fun trivia challenges with user-friendly features. Elevate your knowledge and enjoy the thrill of competing in various categories and difficulty levels. Let the excitement begin!
+
+Experience the Quiz Game now! [Try it](https://quiz-game-pied-one.vercel.app/)
+
+Feel the excitement, challenge your knowledge, and enjoy the immersive world of quizzes!
 
 ## Features:
 
@@ -17,7 +23,3 @@ This engaging Quiz Game project offers a delightful gaming experience, combining
 - **Material-UI (MUI):** Create stunning and responsive user interfaces with ease.
 - **react-hook-form:** Simplify form handling in React applications.
 - **Firebase:** Leverage the power of Firebase for real-time database management and authentication.
-
-Experience the Quiz Game now! [Try it](https://quiz-game-pied-one.vercel.app/)
-
-Feel the excitement, challenge your knowledge, and enjoy the immersive world of quizzes!
