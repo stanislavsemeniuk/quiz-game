@@ -58,6 +58,9 @@ export default function Home() {
               Get ready to embark on a thrilling journey of learning and entertainment. Sign up and
               let the games begin!
             </Typography>
+            <Typography textAlign={{ xs: 'justify', sm: 'left' }} color='rgb(133, 122, 122)' fontStyle='italic' fontSize="16px" margin="16px 0">
+              Created as dyploma project by <Link style={{color:'#3498db',textDecoration:'underline'}} target='_blank' href='https://stanislavsemeniuk.github.io/'>Stanislav Semeniuk</Link>
+            </Typography>
           </>
         )}
       </Box>
